@@ -30,17 +30,19 @@ pnpm test:e2e
 
 ## Repository layout
 
-- `src/` - Pi-agnostic process management, types, protocol, and utilities
-- `extensions/processes/` - core extension, process tool (start, list, output, update, write, stop, clear), settings, lifecycle hooks, notifications, protocol handlers, `/ps`, `/ps:kill`, `/ps:clear`, and `/ps:settings`
+Component roles; run `ls` for the full tree.
+
+- `src/` - Pi-agnostic process management. Zero Pi imports.
+- `extensions/processes/` - core extension: the `process` tool, settings, lifecycle hooks, event bridge, notifications, and the `/ps` overview panel
 - `extensions/processes-logs/` - `/ps:logs` command and log overlay
-- `extensions/processes-dock/` - `/ps:dock`, `/ps:pin`, the dock widget, and the status widget
-- `extensions/shared/` - shared UI helpers (`statusDot`, `processStatusTone`, `LineComponent`, etc.) used across all three extensions
-- `skills/` - shipped package skills
-- `.agents/skills/` - local repo-only skills for development workflows
+- `extensions/processes-dock/` - dock widget, status widget, and the `/ps:dock` / `/ps:pin` commands
+- `extensions/shared/` - UI helpers shared by all three extensions
+- `skills/` - package skills shipped to Pi
+- `.agents/skills/` - repo-only skills for development workflows
 
 ## Package metadata
 
-The package targets Pi `0.87.0`.
+The package targets Pi `1.0.0`.
 
 Pi bundles core packages for extensions. Keep direct imports of these packages in `peerDependencies` with `"*"` ranges and exact local versions in `devDependencies`:
 

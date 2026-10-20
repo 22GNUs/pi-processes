@@ -17,7 +17,7 @@ During UI tests that require processes to be running, either give the user a pro
 ## Stack
 
 - TypeScript (strict mode), Node.js >=22.19.0, pnpm 11.5.1, Biome, Changesets
-- The package targets Pi 0.87.0. Keep imported Pi-bundled packages in `peerDependencies` with `"*"` ranges and exact local versions in `devDependencies`: `@earendil-works/pi-ai`, `@earendil-works/pi-coding-agent`, `@earendil-works/pi-tui`, and `typebox`.
+- The package targets Pi 1.0.0. Keep imported Pi-bundled packages in `peerDependencies` with `"*"` ranges and exact local versions in `devDependencies`: `@earendil-works/pi-ai`, `@earendil-works/pi-coding-agent`, `@earendil-works/pi-tui`, and `typebox`.
 
 ## Scripts
 
@@ -26,6 +26,8 @@ During UI tests that require processes to be running, either give the user a pro
 - `pnpm format` — Biome check with write
 - `pnpm gen:schema` — regenerate `schema.json` from `extensions/processes/config/types.ts`
 - `pnpm check:schema` — verify `schema.json` is up to date
+
+The `--version` flag in both schema scripts must match `PROCESS_CONFIG_VERSION`, exported by the terminal migration in `extensions/processes/config/migrations/` (the loader stamps each migration's declared `version` after a successful run).
 - `pnpm check:changesets` — validate `.changeset/*.md` frontmatter, package names, and bump types
 - `pnpm test` — Unit tests
 - `pnpm test:e2e` — End-to-end tests
@@ -50,19 +52,6 @@ E2E tests live in `tests/e2e/**/*.e2e.ts` and run with `pnpm test:e2e`. They use
 E2E tests use the fixtures in `tests/e2e/fixtures.ts`. Each test gets a `cwd` temporary directory that is removed with fixture cleanup. Use `addScript(name)` to copy a fixture script into that directory, and `addFile(name, content?)` to create marker/input files during a test. Write commands explicitly in tests, such as `./server.sh`, `bash ./crash-on-file.sh`, or `node ./watcher.mjs`.
 
 Avoid fixed sleeps in both unit and e2e tests. Prefer event-driven helpers that wait for process end, watch matches, output events, or marker-driven script behavior. Use fake timers only for intentional timer behavior in unit tests.
-
-## Structure
-
-- `src/` - pi-agnostic process management (manager, types, protocol, utils). Zero pi imports.
-- `extensions/processes/` - core extension: tool registration, settings, hooks, event bridge, request/command handlers, `/ps` overview panel, `/ps:kill`, `/ps:clear`, `/ps:settings`
-- `extensions/processes/config/migrations/` - ordered settings migrations. Each migration lives in its own file prefixed with its index, such as `001-v0-9-4-to-v0-10-0-config.ts`. Migrations declare a semver `version` (the loader stamps it after a successful run); the terminal migration in `002-stamp-config-version.ts` exports `PROCESS_CONFIG_VERSION`, which must match the `--version` flag in the `gen:schema` and `check:schema` scripts.
-- `extensions/processes-logs/` - `/ps:logs` command and log overlay
-- `extensions/processes-dock/` - `/ps:dock`, `/ps:pin` commands, dock widget, status widget, `COMMAND_PIN` handler
-- `extensions/shared/` - shared UI helpers used across all three extensions: `ui.ts` (`statusDot`, `processStatusTone`, `LineComponent`), `display-text.ts` (`sanitizeForDisplay`), `truncate.ts` (ANSI-safe `truncateToWidth`), `log-line.ts` (`renderLogLine`), `line-buffer.ts`
-- `plugins/` - repo-local Biome GritQL lint plugins, registered in `biome.json`
-- `skills/` - shipped package skills consumed by Pi
-- `.agents/skills/` - local repo-only skills for development workflows
-- `docs/` - documentation and design notes (current behavior, architecture, canonical references, future design proposals). See `docs/README.md` for the index.
 
 ## Documentation
 

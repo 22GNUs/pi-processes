@@ -38,7 +38,7 @@ result of the turn is in (pi 0.84.4+, [#8537](https://github.com/earendil-works/
 so they never split a tool call from its result — the failure mode that made
 Anthropic requests 400 (pi 0.84.2–0.84.3). On older pi this option shape is
 unsafe: ≤0.84.1 steers the active run, and 0.84.2–0.84.3 appends mid-run.
-This package targets pi 0.87.0; if you must support older pi, send
+This package targets pi 1.0.0; if you must support older pi, send
 `deliverAs: "nextTurn"` instead — it defers the message until the next user
 prompt on every version.
 

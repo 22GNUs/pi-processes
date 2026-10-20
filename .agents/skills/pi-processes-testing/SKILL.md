@@ -48,6 +48,7 @@ Available scripts under `tests/e2e/scripts/`:
 | `verbose-output.sh` | Large output volume | Truncation, tail behavior |
 | `wait-for-file.sh` | Blocks on a marker file | Synchronization |
 | `stateful-test-watcher.mjs` | Node script with state transitions | Watch mutations, update action |
+| `stdin-echo.sh` | Echoes stdin lines, exits on `quit`/`exit` or EOF | stdin write and EOF (`stdin-repl.e2e.ts`) |
 
 ## Manual QA
 

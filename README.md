@@ -65,7 +65,7 @@ This is useful when Pi started a server, watcher, or local API and you want to f
 
 ## Control the dock
 
-Use `/ps:dock [expand|collapse|close]` to control dock visibility.
+Use `/ps:dock [expand|collapse|close]` to control dock visibility, or click the dock to toggle it between collapsed and expanded.
 
 The dock gives you a compact live view without leaving the conversation.
 
@@ -87,7 +87,7 @@ Use `/ps:kill [id]` to stop a running process, and `/ps:clear` to remove finishe
 
 ## Keep a status line in view
 
-Enable the status widget in `/ps:settings` to show a compact line of running processes below the editor. Each process shows a status dot, its name, and its state, with `+N more` overflow when the line does not fit.
+Enable the status widget in `/ps:settings` to show a compact line below the editor. Live processes show as a status dot plus name; finished processes fold into `✓ N done`, `! N failed`, and `■ N killed` summaries (a recent failure stays visible by name until the next process starts). `+N more` overflow appears when the line does not fit.
 
 It is disabled by default. The widget reflows on resize and clears itself when the process list is empty.
 
