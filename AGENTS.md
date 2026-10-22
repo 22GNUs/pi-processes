@@ -14,30 +14,14 @@ During UI tests that require processes to be running, either give the user a pro
 - Linux: supported
 - Windows: not supported (the manager relies on POSIX process groups)
 
-## Stack
+## Dependencies and scripts
 
-- TypeScript (strict mode), Node.js >=22.19.0, pnpm 11.5.1, Biome, Changesets
-- The package targets Pi 1.0.0. Keep imported Pi-bundled packages in `peerDependencies` with `"*"` ranges and exact local versions in `devDependencies`: `@earendil-works/pi-ai`, `@earendil-works/pi-coding-agent`, `@earendil-works/pi-tui`, and `typebox`.
+The package targets Pi 1.0.0. Keep imported Pi-bundled packages in `peerDependencies` with `"*"` ranges and exact local versions in `devDependencies`: `@earendil-works/pi-ai`, `@earendil-works/pi-coding-agent`, `@earendil-works/pi-tui`, and `typebox`. Run `pnpm install` after package metadata changes and check Pi package resolution with `pnpm why @earendil-works/pi-tui` and `pnpm why @earendil-works/pi-ai`.
 
-## Scripts
+Scripts live in `package.json`. The non-obvious ones:
 
-- `pnpm typecheck` — TypeScript check
-- `pnpm lint` — Biome check
-- `pnpm format` — Biome check with write
-- `pnpm gen:schema` — regenerate `schema.json` from `extensions/processes/config/types.ts`
-- `pnpm check:schema` — verify `schema.json` is up to date
-
-The `--version` flag in both schema scripts must match `PROCESS_CONFIG_VERSION`, exported by the terminal migration in `extensions/processes/config/migrations/` (the loader stamps each migration's declared `version` after a successful run).
-- `pnpm check:changesets` — validate `.changeset/*.md` frontmatter, package names, and bump types
-- `pnpm test` — Unit tests
-- `pnpm test:e2e` — End-to-end tests
-- `pnpm changeset` — Add a changeset
-- `pnpm version` — Apply changeset versions
-- `pnpm release` — Publish the package
-- `pnpm check:lockfile` — Verify `pnpm-lock.yaml` is up to date
-- `pnpm prepare` — Husky install (git hooks)
-
-Run `pnpm install` after package metadata changes and check Pi package resolution with `pnpm why @earendil-works/pi-tui` and `pnpm why @earendil-works/pi-ai`.
+- `pnpm gen:schema` regenerates `schema.json` from `extensions/processes/config/types.ts`; `pnpm check:schema` verifies it. The `--version` flag in both scripts must match `PROCESS_CONFIG_VERSION`, exported by the terminal migration in `extensions/processes/config/migrations/` (the loader stamps each migration's declared `version` after a successful run).
+- When editing changesets, run `pnpm check:changesets` to validate frontmatter, package names, and bump types; the pre-commit hook also runs it.
 
 ## Testing
 
