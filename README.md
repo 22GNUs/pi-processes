@@ -103,13 +103,12 @@ Use `/ps:settings` to configure the extension.
 
 Available settings include:
 
-- process list size
-- output limits
 - shell path override
-- dock defaults
-- follow mode behavior
+- blocking shell background patterns (`&`, `nohup`, `disown`, `setsid`) in bash calls, redirecting Pi to the process tool
 - status widget toggle
-- optional background command interception
+- process panel size
+- log overlay size, history limits, follow mode, and auto-hide
+- dock default state and line count
 
 ## Platform support
 
@@ -160,20 +159,6 @@ These packages are more about watching, waking, or surfacing process state than 
 ## Examples
 
 [`examples/`](./examples) has extension snippets you can copy to `~/.pi/agent/extensions/` and adapt. See [`examples/README.md`](./examples/README.md) for what each one does.
-
-## Troubleshooting
-
-### Pi started something and I want to see more output
-
-Open `/ps` for a quick overview, or use `/ps:logs` for full logs.
-
-### I want one process to stay visible
-
-Use `/ps:pin` to focus the dock on that process.
-
-### I want Pi to avoid shell background tricks
-
-Enable background command interception in `/ps:settings`. When enabled, Pi avoids normal shell background patterns and uses the process workflow instead.
 
 ## Feature demos
 
